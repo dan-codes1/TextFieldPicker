@@ -98,7 +98,9 @@ extension TextFieldPickerUIView: UIPickerViewDelegate {
     }
 
     public func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        delegate?.picker(self, titleForRow: row)
+        let title = delegate?.picker(self, titleForRow: row)
+        print(title)
+        return title
     }
 }
 
@@ -108,7 +110,9 @@ extension TextFieldPickerUIView: UIPickerViewDataSource {
     }
 
     public func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        delegate?.numberOfItems(self) ?? 0
+        let rows = delegate?.numberOfItems(self) ?? 0
+        print(rows)
+        return rows
     }
 
 }
