@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 public struct TextFieldPicker<T>: UIViewRepresentable where T: Identifiable & CustomStringConvertible {
-    @Binding private var selectedItem: T?
+    @Binding private var selection: T?
     private var font: UIFont?
     private var selectedItemUpdateMode: TextFieldPickerSelectionUpdateMode = .onSelect
     private var textFieldStyle: (any TextFieldStyle)?
@@ -17,9 +17,9 @@ public struct TextFieldPicker<T>: UIViewRepresentable where T: Identifiable & Cu
     private let items: [T]
     private let title: String
 
-    public init(_ title: String, selectedItem: Binding<T?>, items: [T]) {
+    public init(_ title: String, selection: Binding<T?>, items: [T]) {
         self.title = title
-        self._selectedItem = selectedItem
+        self._selection = selection
         self.items = items
     }
 
@@ -92,7 +92,7 @@ extension TextFieldPicker {
 
         public func picker(_ picker: TextFieldPickerUIView, didSelectItemAtRow row: Int) {
             guard view.items.isEmpty == false else { return }
-            view.selectedItem = view.items[row]
+            view.selection = view.items[row]
         }
         
         public func picker(_ picker: TextFieldPickerUIView, titleForRow row: Int) -> String? {
