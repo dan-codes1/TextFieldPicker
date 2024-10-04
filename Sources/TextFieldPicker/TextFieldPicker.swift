@@ -33,9 +33,9 @@ public struct TextFieldPicker<T>: UIViewRepresentable where T: Identifiable {
     public func updateUIView(_ uiView: TextFieldPickerUIView, context: Context) {
         uiView.placeHolder = title
         uiView.delegateUpdateMode = selectedItemUpdateMode
-        if let style = textFieldStyle as? RoundedBorderTextFieldStyle {
+        if textFieldStyle is RoundedBorderTextFieldStyle {
             uiView.textFieldBoarderStyle = .roundedRect
-        } else if let style = textFieldStyle as? PlainTextFieldStyle {
+        } else if textFieldStyle is PlainTextFieldStyle {
             uiView.textFieldBoarderStyle = .none
         }
         if let uiTextFieldStyle {
@@ -74,7 +74,8 @@ extension TextFieldPicker {
         
         public func picker(_ picker: TextFieldPickerUIView, titleForRow row: Int) -> String? {
             guard view.items.count <= row else { return nil }
-            return (view.items[row] as? CustomStringConvertible)?.description
+            let item = view.items[row]
+            return (item as? CustomStringConvertible)?.description ?? item as? String
         }
         
         public func numberOfItems(_ picker: TextFieldPickerUIView) -> Int {
