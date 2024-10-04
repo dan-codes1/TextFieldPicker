@@ -8,14 +8,14 @@ import Foundation
 import UIKit
 
 public final class TextFieldPickerUIView: UIView {
-    var delegate: TextFieldPickerDelegate?
-    var delegateUpdateMode: TextFieldPickerSelectionUpdateMode = .onSelect
-    var placeHolder: String? {
+    public var delegate: TextFieldPickerDelegate?
+    public var delegateUpdateMode: TextFieldPickerSelectionUpdateMode = .onSelect
+    public var placeHolder: String? {
         didSet {
             textField.placeholder = placeHolder
         }
     }
-    var textFieldBoarderStyle: UITextField.BorderStyle {
+    public var textFieldBoarderStyle: UITextField.BorderStyle {
         didSet {
             textField.borderStyle = textFieldBoarderStyle
         }
@@ -58,10 +58,6 @@ public final class TextFieldPickerUIView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    @objc private func removePicker() {
-        endEditing(true)
-    }
-
 }
 
 private extension TextFieldPickerUIView {
@@ -78,6 +74,10 @@ private extension TextFieldPickerUIView {
             textField.bottomAnchor.constraint(equalTo: bottomAnchor)
         ]
         NSLayoutConstraint.activate(constraints)
+    }
+
+    @objc func removePicker() {
+        endEditing(true)
     }
 
 }

@@ -4,7 +4,7 @@
 import Foundation
 import SwiftUI
 
-struct TextFieldPicker<T>: UIViewRepresentable where T: Identifiable & Displayable {
+public struct TextFieldPicker<T>: UIViewRepresentable where T: Identifiable & Displayable {
     @Binding private var selectedItem: T?
     @State private var textFieldStyle: (any TextFieldStyle)?
     @State private var uiTextFieldStyle: UITextField.BorderStyle?
@@ -18,11 +18,11 @@ struct TextFieldPicker<T>: UIViewRepresentable where T: Identifiable & Displayab
         self.items = items
     }
 
-    func makeCoordinator() -> Coordinator {
+    public func makeCoordinator() -> Coordinator {
         Coordinator(self)
     }
 
-    func makeUIView(context: Context) -> TextFieldPickerUIView {
+    public func makeUIView(context: Context) -> TextFieldPickerUIView {
         let view = TextFieldPickerUIView()
         view.delegateUpdateMode = selectedItemUpdateMode
         view.placeHolder = title
@@ -30,7 +30,7 @@ struct TextFieldPicker<T>: UIViewRepresentable where T: Identifiable & Displayab
         return view
     }
     
-    func updateUIView(_ uiView: TextFieldPickerUIView, context: Context) {
+    public func updateUIView(_ uiView: TextFieldPickerUIView, context: Context) {
         uiView.placeHolder = title
         uiView.delegateUpdateMode = selectedItemUpdateMode
         if let style = textFieldStyle as? RoundedBorderTextFieldStyle {
@@ -43,16 +43,16 @@ struct TextFieldPicker<T>: UIViewRepresentable where T: Identifiable & Displayab
         }
     }
 
-    func selectedItemUpdateMode(_ mode: TextFieldPickerSelectionUpdateMode) {
+    public func selectedItemUpdateMode(_ mode: TextFieldPickerSelectionUpdateMode) {
         selectedItemUpdateMode = mode
     }
 
-    func textFieldStyle(_ style: any TextFieldStyle) {
+    public func textFieldStyle(_ style: any TextFieldStyle) {
         textFieldStyle = style
         uiTextFieldStyle = nil
     }
 
-    func textFieldStyle(_ style: UITextField.BorderStyle) {
+    public func textFieldStyle(_ style: UITextField.BorderStyle) {
         uiTextFieldStyle = style
         textFieldStyle = nil
     }
@@ -60,24 +60,24 @@ struct TextFieldPicker<T>: UIViewRepresentable where T: Identifiable & Displayab
 }
 
 extension TextFieldPicker {
-    class Coordinator: NSObject, TextFieldPickerDelegate {
+    public class Coordinator: NSObject, TextFieldPickerDelegate {
         let view: TextFieldPicker
 
         init(_ view: TextFieldPicker) {
             self.view = view
         }
 
-        func picker(_ picker: TextFieldPickerUIView, didSelectItemAtRow row: Int) {
+        public func picker(_ picker: TextFieldPickerUIView, didSelectItemAtRow row: Int) {
             guard view.items.count <= row else { return }
             view.selectedItem = view.items[row]
         }
         
-        func picker(_ picker: TextFieldPickerUIView, titleForRow row: Int) -> String? {
+        public func picker(_ picker: TextFieldPickerUIView, titleForRow row: Int) -> String? {
             guard view.items.count <= row else { return nil }
             return view.items[row].displayString
         }
         
-        func numberOfItems(_ picker: TextFieldPickerUIView) -> Int {
+        public func numberOfItems(_ picker: TextFieldPickerUIView) -> Int {
             view.items.count
         }
     }
