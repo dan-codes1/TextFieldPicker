@@ -31,7 +31,7 @@ public struct TextFieldPicker<T>: UIViewRepresentable where T: Identifiable & Cu
     }
     
     public func updateUIView(_ uiView: TextFieldPickerUIView, context: Context) {
-        uiView.placeHolder = title
+        uiView.placeHolder = "title"
         uiView.delegateUpdateMode = selectedItemUpdateMode
         if textFieldStyle is RoundedBorderTextFieldStyle {
             uiView.textFieldBoarderStyle = .roundedRect
@@ -44,23 +44,20 @@ public struct TextFieldPicker<T>: UIViewRepresentable where T: Identifiable & Cu
     }
 
     public func selectedItemUpdateMode(_ mode: TextFieldPickerSelectionUpdateMode) -> TextFieldPicker<T> {
-        var copy = self
-        copy.selectedItemUpdateMode = mode
-        return copy
+        selectedItemUpdateMode = mode
+        return self
     }
 
     public func textFieldStyle(_ style: any TextFieldStyle) -> TextFieldPicker<T> {
-        var copy = self
-        copy.textFieldStyle = style
-        copy.uiTextFieldStyle = nil
-        return copy
+        textFieldStyle = style
+        uiTextFieldStyle = nil
+        return self
     }
 
     public func textFieldStyle(_ style: UITextField.BorderStyle) -> TextFieldPicker<T> {
-        var copy = self
-        copy.uiTextFieldStyle = style
-        copy.textFieldStyle = nil
-        return copy
+        uiTextFieldStyle = style
+        textFieldStyle = nil
+        return self
     }
 
 }
