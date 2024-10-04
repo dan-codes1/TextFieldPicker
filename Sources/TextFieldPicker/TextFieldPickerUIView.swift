@@ -3,7 +3,9 @@
 //  
 //
 //  Created by Daniel Eze on 2024-10-04.
+//  Copyright © 2024 Daniel Eze. All rights reserved.
 //
+
 import Foundation
 import UIKit
 
