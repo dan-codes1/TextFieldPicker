@@ -3,24 +3,45 @@
 //
 //
 //  Created by Daniel Eze on 2024-10-04.
+//  Copyright © 2024 Daniel Eze. All rights reserved.
 //
 
 import Foundation
 import SwiftUI
 
+/// UI component that provides a TextField with a picker as its input view.
+///
+/// - Parameters:
+///     - title: The placehodler of the text field
+///     - selection: The selected value of the available options. Must conform to [`Identifiable`](https://developer.apple.com/documentation/swift/identifiable) and [`CustomStringConvertible`](https://developer.apple.com/documentation/swift/customstringconvertible). The `description` of the `CustomStringConvertible` is used as the display string for the picker options.
+///     - options: The list of available selectable options. Must be the same type as the `selection` paramenter.
+///
+/// **Example Usage**:
+/// ```swift
+/// struct ContentView: View {
+///     @State private var selectedCountry: Country? = nil
+///     let countries = Country.allCases
+///
+///     var body: some View {
+///         TextFieldPicker(selection: $selectedCountry, options: countries)
+///     }
+/// }
+/// ```
 public struct TextFieldPicker<T>: UIViewRepresentable where T: Identifiable & CustomStringConvertible {
     @Binding private var selection: T?
     private var font: UIFont?
-    private var selectedItemUpdateMode: TextFieldPickerSelectionUpdateMode = .onSelect
+    private var selectionUpdateMode: TextFieldPickerSelectionUpdateMode = .onSelect
     private var textFieldStyle: (any TextFieldStyle)?
     private var uiTextFieldStyle: UITextField.BorderStyle?
-    private let items: [T]
+    /// The list of options to be displayed in the picker. Each option must conform to Identifiable and CustomStringConvertible.
+    private let options: [T]
+    /// A placeholder or title for the text field when no item is selected.
     private let title: String
 
     public init(_ title: String, selection: Binding<T?>, items: [T]) {
         self.title = title
         self._selection = selection
-        self.items = items
+        self.options = items
     }
 
     public func makeCoordinator() -> Coordinator {
@@ -35,7 +56,7 @@ public struct TextFieldPicker<T>: UIViewRepresentable where T: Identifiable & Cu
     }
     
     public func updateUIView(_ uiView: TextFieldPickerUIView, context: Context) {
-        uiView.delegateUpdateMode = selectedItemUpdateMode
+        uiView.selectionUpdateMode = selectionUpdateMode
         uiView.font = font
         if textFieldStyle is RoundedBorderTextFieldStyle {
             uiView.textFieldBoarderStyle = .roundedRect
@@ -60,7 +81,7 @@ extension TextFieldPicker {
     /// Sets the selection update mode in this view.
     public func selectedItemUpdateMode(_ mode: TextFieldPickerSelectionUpdateMode) -> TextFieldPicker<T> {
         var view = self
-        view.selectedItemUpdateMode = mode
+        view.selectionUpdateMode = mode
         return view
     }
 
@@ -91,17 +112,17 @@ extension TextFieldPicker {
         }
 
         public func picker(_ picker: TextFieldPickerUIView, didSelectItemAtRow row: Int) {
-            guard view.items.isEmpty == false else { return }
-            view.selection = view.items[row]
+            guard view.options.isEmpty == false else { return }
+            view.selection = view.options[row]
         }
         
         public func picker(_ picker: TextFieldPickerUIView, titleForRow row: Int) -> String? {
-            guard view.items.isEmpty == false else { return nil }
-            return view.items[row].description
+            guard view.options.isEmpty == false else { return nil }
+            return view.options[row].description
         }
         
         public func numberOfItems(_ picker: TextFieldPickerUIView) -> Int {
-            view.items.count
+            view.options.count
         }
     }
 }
