@@ -84,23 +84,26 @@ private extension TextFieldPickerUIView {
 
 extension TextFieldPickerUIView: UITextFieldDelegate {
     public func textFieldDidEndEditing(_ textField: UITextField) {
-        guard let title = delegate?.picker(self, titleForRow: selectedRow) else { return }
         delegate?.picker(self, didSelectItemAtRow: selectedRow)
-        textField.text = title
+        if let title = delegate?.picker(self, titleForRow: selectedRow) {
+            textField.text = title
+        }
     }
 }
 
 extension TextFieldPickerUIView: UIPickerViewDelegate {
     public func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        guard let title = delegate?.picker(self, titleForRow: selectedRow) else { return }
-        delegate?.picker(self, didSelectItemAtRow: selectedRow)
-        textField.text = title
+        selectedRow = row
+        if delegateUpdateMode == .onSelect {
+            delegate?.picker(self, didSelectItemAtRow: selectedRow)
+        }
+        if let title = delegate?.picker(self, titleForRow: selectedRow) {
+            textField.text = title
+        }
     }
 
     public func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        let title = delegate?.picker(self, titleForRow: row)
-        print(title)
-        return title
+        delegate?.picker(self, titleForRow: row)
     }
 }
 
@@ -110,9 +113,7 @@ extension TextFieldPickerUIView: UIPickerViewDataSource {
     }
 
     public func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        let rows = delegate?.numberOfItems(self) ?? 0
-        print(rows)
-        return rows
+        delegate?.numberOfItems(self) ?? 0
     }
 
 }
