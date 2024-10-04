@@ -3,6 +3,8 @@
 
 A SwiftUI package that provides a TextField with a Picker as its input view. The picker replaces the keyboard as the input view for the TextField.
 
+https://github.com/user-attachments/assets/83f029db-457b-4521-9f02-79697e11d9f9
+
 ## Requirements
 
 - iOS 13.0+
@@ -32,8 +34,6 @@ struct ContentView: View {
     }
 }
 ```
-
-https://github.com/user-attachments/assets/83f029db-457b-4521-9f02-79697e11d9f9
 
 - Important: The `selection` parameter type must conform to [`Identifiable`](https://developer.apple.com/documentation/swift/identifiable) and [`CustomStringConvertible`](https://developer.apple.com/documentation/swift/customstringconvertible). The `decription` of the `CustomStringConvertible` is used as the display string for the picker options.
      In this case, `country` conforms to Indetifiable and CustomStringConvertible
