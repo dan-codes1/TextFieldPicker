@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  TextFieldPickerUIView.swift
 //  
 //
 //  Created by Daniel Eze on 2024-10-04.
@@ -8,14 +8,19 @@ import Foundation
 import UIKit
 
 public final class TextFieldPickerUIView: UIView {
-    var delegate: TextFieldPickerDelegate?
-    var delegateUpdateMode: TextFieldPickerSelectionUpdateMode = .onSelect
-    var placeHolder: String? {
+    public var delegate: TextFieldPickerDelegate?
+    public var delegateUpdateMode: TextFieldPickerSelectionUpdateMode = .onSelect
+    public var font: UIFont? {
+        didSet {
+            textField.font = font
+        }
+    }
+    public var placeHolder: String? {
         didSet {
             textField.placeholder = placeHolder
         }
     }
-    var textFieldBoarderStyle: UITextField.BorderStyle {
+    public var textFieldBoarderStyle: UITextField.BorderStyle {
         didSet {
             textField.borderStyle = textFieldBoarderStyle
         }
@@ -58,10 +63,6 @@ public final class TextFieldPickerUIView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    @objc private func removePicker() {
-        endEditing(true)
-    }
-
 }
 
 private extension TextFieldPickerUIView {
@@ -80,21 +81,29 @@ private extension TextFieldPickerUIView {
         NSLayoutConstraint.activate(constraints)
     }
 
+    @objc func removePicker() {
+        endEditing(true)
+    }
 }
 
 extension TextFieldPickerUIView: UITextFieldDelegate {
     public func textFieldDidEndEditing(_ textField: UITextField) {
-        guard let title = delegate?.picker(self, titleForRow: selectedRow) else { return }
         delegate?.picker(self, didSelectItemAtRow: selectedRow)
-        textField.text = title
+        if let title = delegate?.picker(self, titleForRow: selectedRow) {
+            textField.text = title
+        }
     }
 }
 
 extension TextFieldPickerUIView: UIPickerViewDelegate {
     public func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        guard let title = delegate?.picker(self, titleForRow: selectedRow) else { return }
-        delegate?.picker(self, didSelectItemAtRow: selectedRow)
-        textField.text = title
+        selectedRow = row
+        if delegateUpdateMode == .onSelect {
+            delegate?.picker(self, didSelectItemAtRow: selectedRow)
+        }
+        if let title = delegate?.picker(self, titleForRow: selectedRow) {
+            textField.text = title
+        }
     }
 
     public func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
