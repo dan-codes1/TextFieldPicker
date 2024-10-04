@@ -12,7 +12,7 @@ public struct TextFieldPicker<T>: UIViewRepresentable where T: Identifiable {
     @State private var selectedItemUpdateMode: TextFieldPickerSelectionUpdateMode = .onSelect
     private var items: [T]
 
-    init(_ title: String, selectedItem: Binding<T?>, items: [T]) {
+    public init(_ title: String, selectedItem: Binding<T?>, items: [T]) {
         self.title = title
         self._selectedItem = selectedItem
         self.items = items
