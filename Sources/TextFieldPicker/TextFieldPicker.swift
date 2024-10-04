@@ -27,6 +27,14 @@ public struct TextFieldPicker<T>: UIViewRepresentable where T: Identifiable & Cu
         view.delegateUpdateMode = selectedItemUpdateMode
         view.placeHolder = title
         view.delegate = context.coordinator
+        if textFieldStyle is RoundedBorderTextFieldStyle {
+            view.textFieldBoarderStyle = .roundedRect
+        } else if textFieldStyle is PlainTextFieldStyle {
+            view.textFieldBoarderStyle = .none
+        }
+        if let uiTextFieldStyle {
+            view.textFieldBoarderStyle = uiTextFieldStyle
+        }
         return view
     }
     
@@ -43,22 +51,24 @@ public struct TextFieldPicker<T>: UIViewRepresentable where T: Identifiable & Cu
         }
     }
 
-    public func selectedItemUpdateMode(_ mode: TextFieldPickerSelectionUpdateMode) -> some View {
-        selectedItemUpdateMode = mode
-        return self
+    public func selectedItemUpdateMode(_ mode: TextFieldPickerSelectionUpdateMode) -> TextFieldPicker<T> {
+        var view = self
+        self.selectedItemUpdateMode = mode
+        return view
     }
 
-    public func textFieldStyle(_ style: any TextFieldStyle) -> some View {
-        textFieldStyle = style
-        uiTextFieldStyle = nil
-        return self
+    public func textFieldStyle(_ style: any TextFieldStyle) -> TextFieldPicker<T> {
+        var view = self
+        view.textFieldStyle = style
+        view.uiTextFieldStyle = nil
+        return view
     }
 
-    public func textFieldStyle(_ style: UITextField.BorderStyle) -> some View {
-        uiTextFieldStyle = style
-        title = "jkjk"
-        textFieldStyle = nil
-        return self
+    public func textFieldStyle(_ style: UITextField.BorderStyle) -> TextFieldPicker<T> {
+        var view = self
+        view.uiTextFieldStyle = style
+        view.textFieldStyle = nil
+        return view
     }
 
 }
