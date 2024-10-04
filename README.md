@@ -12,6 +12,13 @@ A SwiftUI package that provides a TextField with a Picker as its input view. The
 
 ### Swift Package Manager
 
+To add `TextFieldPicker` to your Xcode project:
+
+1. In Xcode, open your project and select **File** > **Add Packages**.
+2. Paste the repository URL: https://github.com/dan-codes1/TextFieldPicker.
+3. Choose the package options and add it to your target.
+
+
 ## Usage
 
 Here is a simple example:
