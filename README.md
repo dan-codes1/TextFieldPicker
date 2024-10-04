@@ -35,7 +35,7 @@ struct ContentView: View {
 }
 ```
 
-    **⚠️ Important:**: The `selection` parameter type must conform to [`Identifiable`](https://developer.apple.com/documentation/swift/identifiable) and [`CustomStringConvertible`](https://developer.apple.com/documentation/swift/customstringconvertible). The `decription` of the `CustomStringConvertible` is used as the display string for the picker options.
+    ⚠️**Important:**: The `selection` parameter type must conform to [`Identifiable`](https://developer.apple.com/documentation/swift/identifiable) and [`CustomStringConvertible`](https://developer.apple.com/documentation/swift/customstringconvertible). The `decription` of the `CustomStringConvertible` is used as the display string for the picker options.
      In this case, `country` conforms to Indetifiable and CustomStringConvertible
      ```swift
      enum Country: String, CaseIterable, Identifiable, CustomStringConvertible {
