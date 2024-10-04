@@ -38,10 +38,10 @@ public struct TextFieldPicker<T>: UIViewRepresentable where T: Identifiable & Cu
     /// A placeholder or title for the text field when no item is selected.
     private let title: String
 
-    public init(_ title: String, selection: Binding<T?>, items: [T]) {
+    public init(_ title: String, selection: Binding<T?>, options: [T]) {
         self.title = title
         self._selection = selection
-        self.options = items
+        self.options = options
     }
 
     public func makeCoordinator() -> Coordinator {
