@@ -9,7 +9,7 @@ import UIKit
 
 public final class TextFieldPickerUIView: UIView {
     public var delegate: TextFieldPickerDelegate?
-    public var delegateUpdateMode: TextFieldPickerSelectionUpdateMode = .onSelect
+    public var selectionUpdateMode: TextFieldPickerSelectionUpdateMode = .onSelect
     public var font: UIFont? {
         didSet {
             textField.font = font
@@ -98,7 +98,7 @@ extension TextFieldPickerUIView: UITextFieldDelegate {
 extension TextFieldPickerUIView: UIPickerViewDelegate {
     public func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         selectedRow = row
-        if delegateUpdateMode == .onSelect {
+        if selectionUpdateMode == .onSelect {
             delegate?.picker(self, didSelectItemAtRow: selectedRow)
         }
         if let title = delegate?.picker(self, titleForRow: selectedRow) {

@@ -11,7 +11,7 @@ import SwiftUI
 public struct TextFieldPicker<T>: UIViewRepresentable where T: Identifiable & CustomStringConvertible {
     @Binding private var selection: T?
     private var font: UIFont?
-    private var selectedItemUpdateMode: TextFieldPickerSelectionUpdateMode = .onSelect
+    private var selectionUpdateMode: TextFieldPickerSelectionUpdateMode = .onSelect
     private var textFieldStyle: (any TextFieldStyle)?
     private var uiTextFieldStyle: UITextField.BorderStyle?
     private let items: [T]
@@ -35,7 +35,7 @@ public struct TextFieldPicker<T>: UIViewRepresentable where T: Identifiable & Cu
     }
     
     public func updateUIView(_ uiView: TextFieldPickerUIView, context: Context) {
-        uiView.delegateUpdateMode = selectedItemUpdateMode
+        uiView.selectionUpdateMode = selectionUpdateMode
         uiView.font = font
         if textFieldStyle is RoundedBorderTextFieldStyle {
             uiView.textFieldBoarderStyle = .roundedRect
@@ -60,7 +60,7 @@ extension TextFieldPicker {
     /// Sets the selection update mode in this view.
     public func selectedItemUpdateMode(_ mode: TextFieldPickerSelectionUpdateMode) -> TextFieldPicker<T> {
         var view = self
-        view.selectedItemUpdateMode = mode
+        view.selectionUpdateMode = mode
         return view
     }
 
