@@ -50,11 +50,10 @@ public struct TextFieldPicker<T>: UIViewRepresentable where T: Identifiable & Cu
             uiView.textFieldBoarderStyle = uiTextFieldStyle
         }
     }
-
 }
 
+// MARK: View Modifiers
 extension TextFieldPicker {
-
     public func selectedItemUpdateMode(_ mode: TextFieldPickerSelectionUpdateMode) -> TextFieldPicker<T> {
         var view = self
         view.selectedItemUpdateMode = mode
@@ -76,6 +75,7 @@ extension TextFieldPicker {
     }
 }
 
+// MARK: Coordinator
 extension TextFieldPicker {
     public class Coordinator: NSObject, TextFieldPickerDelegate {
         let view: TextFieldPicker
@@ -98,5 +98,4 @@ extension TextFieldPicker {
             view.items.count
         }
     }
-
 }

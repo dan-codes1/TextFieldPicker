@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  TextFieldPickerUIView.swift
 //  
 //
 //  Created by Daniel Eze on 2024-10-04.
@@ -79,7 +79,6 @@ private extension TextFieldPickerUIView {
     @objc func removePicker() {
         endEditing(true)
     }
-
 }
 
 extension TextFieldPickerUIView: UITextFieldDelegate {
