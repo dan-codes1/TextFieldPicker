@@ -74,12 +74,12 @@ extension TextFieldPicker {
         }
 
         public func picker(_ picker: TextFieldPickerUIView, didSelectItemAtRow row: Int) {
-            guard view.items.count <= row else { return }
+            guard view.items.isEmpty == false else { return }
             view.selectedItem = view.items[row]
         }
         
         public func picker(_ picker: TextFieldPickerUIView, titleForRow row: Int) -> String? {
-            guard view.items.count > 0 else { return nil }
+            guard view.items.isEmpty == false else { return nil }
             return view.items[row].description
         }
         
