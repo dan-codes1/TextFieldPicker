@@ -6,11 +6,11 @@ import SwiftUI
 
 public struct TextFieldPicker<T>: UIViewRepresentable where T: Identifiable & CustomStringConvertible {
     @Binding private var selectedItem: T?
-    @State private var textFieldStyle: (any TextFieldStyle)?
-    @State private var uiTextFieldStyle: UITextField.BorderStyle?
-    @State private var title: String
-    @State private var selectedItemUpdateMode: TextFieldPickerSelectionUpdateMode = .onSelect
-    private var items: [T]
+    private var selectedItemUpdateMode: TextFieldPickerSelectionUpdateMode = .onSelect
+    private var textFieldStyle: (any TextFieldStyle)?
+    private var uiTextFieldStyle: UITextField.BorderStyle?
+    private let items: [T]
+    private let title: String
 
     public init(_ title: String, selectedItem: Binding<T?>, items: [T]) {
         self.title = title
@@ -51,9 +51,13 @@ public struct TextFieldPicker<T>: UIViewRepresentable where T: Identifiable & Cu
         }
     }
 
+}
+
+extension TextFieldPicker {
+
     public func selectedItemUpdateMode(_ mode: TextFieldPickerSelectionUpdateMode) -> TextFieldPicker<T> {
         var view = self
-        self.selectedItemUpdateMode = mode
+        view.selectedItemUpdateMode = mode
         return view
     }
 
@@ -70,7 +74,6 @@ public struct TextFieldPicker<T>: UIViewRepresentable where T: Identifiable & Cu
         view.textFieldStyle = nil
         return view
     }
-
 }
 
 extension TextFieldPicker {
