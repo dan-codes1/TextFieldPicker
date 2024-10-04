@@ -6,6 +6,7 @@ import SwiftUI
 
 public struct TextFieldPicker<T>: UIViewRepresentable where T: Identifiable & CustomStringConvertible {
     @Binding private var selectedItem: T?
+    private var font: UIFont?
     private var selectedItemUpdateMode: TextFieldPickerSelectionUpdateMode = .onSelect
     private var textFieldStyle: (any TextFieldStyle)?
     private var uiTextFieldStyle: UITextField.BorderStyle?
@@ -24,23 +25,14 @@ public struct TextFieldPicker<T>: UIViewRepresentable where T: Identifiable & Cu
 
     public func makeUIView(context: Context) -> TextFieldPickerUIView {
         let view = TextFieldPickerUIView()
-        view.delegateUpdateMode = selectedItemUpdateMode
         view.placeHolder = title
         view.delegate = context.coordinator
-        if textFieldStyle is RoundedBorderTextFieldStyle {
-            view.textFieldBoarderStyle = .roundedRect
-        } else if textFieldStyle is PlainTextFieldStyle {
-            view.textFieldBoarderStyle = .none
-        }
-        if let uiTextFieldStyle {
-            view.textFieldBoarderStyle = uiTextFieldStyle
-        }
         return view
     }
     
     public func updateUIView(_ uiView: TextFieldPickerUIView, context: Context) {
-        uiView.placeHolder = title
         uiView.delegateUpdateMode = selectedItemUpdateMode
+        uiView.font = font
         if textFieldStyle is RoundedBorderTextFieldStyle {
             uiView.textFieldBoarderStyle = .roundedRect
         } else if textFieldStyle is PlainTextFieldStyle {
@@ -54,12 +46,21 @@ public struct TextFieldPicker<T>: UIViewRepresentable where T: Identifiable & Cu
 
 // MARK: View Modifiers
 extension TextFieldPicker {
+    /// Sets the font for text in the textfield.
+    public func font(_ font: UIFont) -> TextFieldPicker<T> {
+        var view = self
+        view.font = font
+        return view
+    }
+
+    /// Sets the selection update mode in this view.
     public func selectedItemUpdateMode(_ mode: TextFieldPickerSelectionUpdateMode) -> TextFieldPicker<T> {
         var view = self
         view.selectedItemUpdateMode = mode
         return view
     }
 
+    /// Sets the style for the text field in this view.
     public func textFieldStyle(_ style: any TextFieldStyle) -> TextFieldPicker<T> {
         var view = self
         view.textFieldStyle = style
@@ -67,6 +68,7 @@ extension TextFieldPicker {
         return view
     }
 
+    /// Sets the style for the text field in this view.
     public func textFieldStyle(_ style: UITextField.BorderStyle) -> TextFieldPicker<T> {
         var view = self
         view.uiTextFieldStyle = style

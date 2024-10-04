@@ -10,6 +10,11 @@ import UIKit
 public final class TextFieldPickerUIView: UIView {
     public var delegate: TextFieldPickerDelegate?
     public var delegateUpdateMode: TextFieldPickerSelectionUpdateMode = .onSelect
+    public var font: UIFont? {
+        didSet {
+            textField.font = font
+        }
+    }
     public var placeHolder: String? {
         didSet {
             textField.placeholder = placeHolder
