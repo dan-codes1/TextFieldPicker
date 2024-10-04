@@ -4,7 +4,7 @@
 import Foundation
 import SwiftUI
 
-public struct TextFieldPicker<T>: UIViewRepresentable where T: Identifiable & Displayable {
+public struct TextFieldPicker<T>: UIViewRepresentable where T: Identifiable {
     @Binding private var selectedItem: T?
     @State private var textFieldStyle: (any TextFieldStyle)?
     @State private var uiTextFieldStyle: UITextField.BorderStyle?
@@ -74,7 +74,7 @@ extension TextFieldPicker {
         
         public func picker(_ picker: TextFieldPickerUIView, titleForRow row: Int) -> String? {
             guard view.items.count <= row else { return nil }
-            return view.items[row].displayString
+            return (view.items[row] as? CustomStringConvertible)?.description
         }
         
         public func numberOfItems(_ picker: TextFieldPickerUIView) -> Int {
