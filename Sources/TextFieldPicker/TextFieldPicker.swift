@@ -43,18 +43,21 @@ public struct TextFieldPicker<T>: UIViewRepresentable where T: Identifiable & Cu
         }
     }
 
-    public func selectedItemUpdateMode(_ mode: TextFieldPickerSelectionUpdateMode) {
+    public func selectedItemUpdateMode(_ mode: TextFieldPickerSelectionUpdateMode) -> TextFieldPicker<T> {
         selectedItemUpdateMode = mode
+        return self
     }
 
-    public func textFieldStyle(_ style: any TextFieldStyle) {
+    public func textFieldStyle(_ style: any TextFieldStyle) -> TextFieldPicker<T> {
         textFieldStyle = style
         uiTextFieldStyle = nil
+        return self
     }
 
-    public func textFieldStyle(_ style: UITextField.BorderStyle) {
+    public func textFieldStyle(_ style: UITextField.BorderStyle) -> TextFieldPicker<T> {
         uiTextFieldStyle = style
         textFieldStyle = nil
+        return self
     }
 
 }
