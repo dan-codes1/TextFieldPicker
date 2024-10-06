@@ -27,7 +27,7 @@ public final class TextFieldPickerUIView: UIView {
             textField.borderStyle = textFieldBoarderStyle
         }
     }
-
+    private var isInitialSelection: Bool = true
     private var selectedRow: Int = 0
 
     private lazy var picker: UIPickerView = {
@@ -54,7 +54,7 @@ public final class TextFieldPickerUIView: UIView {
         return field
     }()
 
-    init() {
+    public init() {
         self.textFieldBoarderStyle = .none
         super.init(frame: .zero)
         self.configure()
@@ -89,6 +89,14 @@ private extension TextFieldPickerUIView {
 }
 
 extension TextFieldPickerUIView: UITextFieldDelegate {
+    public func textFieldDidBeginEditing(_ textField: UITextField) {
+        if isInitialSelection {
+            let string = delegate?.picker(self, titleForRow: 0)
+            textField.text = string
+            isInitialSelection = false
+        }
+    }
+
     public func textFieldDidEndEditing(_ textField: UITextField) {
         delegate?.picker(self, didSelectItemAtRow: selectedRow)
         if let title = delegate?.picker(self, titleForRow: selectedRow) {
