@@ -61,3 +61,7 @@ struct ContentView: View {
 
 ## Contribution
 Contributions are welcome! Please open an issue or submit a pull request if you would like to contribute to the project.
+
+## See Also
+[TextFieldDatePicker](https://github.com/dan-codes1/TextFieldPicker) is a similar package but for dates. Check it out!
+
