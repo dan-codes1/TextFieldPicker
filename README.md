@@ -14,7 +14,7 @@ https://github.com/user-attachments/assets/83f029db-457b-4521-9f02-79697e11d9f9
 
 ### Swift Package Manager
 
-To add `TextFieldPicker` to your Xcode project:
+To add TextFieldPicker to your Xcode project:
 
 1. In Xcode, open your project and select **File** > **Add Packages**.
 2. Paste the repository URL: https://github.com/dan-codes1/TextFieldPicker.
@@ -36,7 +36,7 @@ struct ContentView: View {
 ```
 
 ⚠️ **Important**: The `selection` parameter type must conform to [`Identifiable`](https://developer.apple.com/documentation/swift/identifiable) and [`CustomStringConvertible`](https://developer.apple.com/documentation/swift/customstringconvertible). The `decription` of the `CustomStringConvertible` is used as the display string for the picker options.
- In this case, `country` conforms to Indetifiable and CustomStringConvertible
+ In this case, `country` conforms to Indetifiable and CustomStringConvertible:
  ```swift
  enum Country: String, CaseIterable, Identifiable, CustomStringConvertible {
      var id: Self { self }
