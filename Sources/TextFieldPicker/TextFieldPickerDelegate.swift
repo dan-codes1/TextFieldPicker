@@ -14,8 +14,8 @@ public protocol TextFieldPickerDelegate {
     /// - Parameters:
     ///     - picker: The picker view.
     ///     - row: the selected row.
-
     func picker(_ picker: TextFieldPickerUIView, didSelectItemAtRow row: Int)
+
     /// Gets the text for each picker item.
     /// - Parameters:
     ///     - picker: The picker view.
