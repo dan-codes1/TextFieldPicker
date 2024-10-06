@@ -54,7 +54,7 @@ public final class TextFieldPickerUIView: UIView {
         return field
     }()
 
-    init() {
+    public init() {
         self.textFieldBoarderStyle = .none
         super.init(frame: .zero)
         self.configure()
