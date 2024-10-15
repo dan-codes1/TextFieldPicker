@@ -19,9 +19,11 @@ public final class TextFieldPickerUIView: UIView {
     }
     public var initialTextFieldText: String? {
         didSet {
-            textField.text = initialTextFieldText
-            if let row = delegate?.indexOfInitalSelection(self) {
-                picker.selectRow(row, inComponent: 0, animated: false)
+            if let initialTextFieldText {
+                textField.text = initialTextFieldText
+                if let row = delegate?.indexOfInitalSelection?(self) {
+                    picker.selectRow(row.intValue, inComponent: 0, animated: false)
+                }
             }
         }
     }
