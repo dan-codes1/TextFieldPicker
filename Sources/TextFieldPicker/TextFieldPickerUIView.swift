@@ -17,6 +17,11 @@ public final class TextFieldPickerUIView: UIView {
             textField.font = font
         }
     }
+    public var initialTextFieldText: String? {
+        didSet {
+            textField.text = initialTextFieldText
+        }
+    }
     public var placeHolder: String? {
         didSet {
             textField.placeholder = placeHolder
@@ -86,6 +91,7 @@ private extension TextFieldPickerUIView {
     @objc func removePicker() {
         endEditing(true)
     }
+
 }
 
 extension TextFieldPickerUIView: UITextFieldDelegate {
@@ -103,6 +109,7 @@ extension TextFieldPickerUIView: UITextFieldDelegate {
             textField.text = title
         }
     }
+
 }
 
 extension TextFieldPickerUIView: UIPickerViewDelegate {
@@ -119,6 +126,7 @@ extension TextFieldPickerUIView: UIPickerViewDelegate {
     public func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         delegate?.picker(self, titleForRow: row)
     }
+
 }
 
 extension TextFieldPickerUIView: UIPickerViewDataSource {

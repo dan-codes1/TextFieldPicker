@@ -53,6 +53,7 @@ public struct TextFieldPicker<T>: UIViewRepresentable where T: Identifiable & Cu
     public func makeUIView(context: Context) -> TextFieldPickerUIView {
         let view = TextFieldPickerUIView()
         view.placeHolder = title
+        view.initialTextFieldText = selection?.description
         view.delegate = context.coordinator
         return view
     }
@@ -127,4 +128,5 @@ extension TextFieldPicker {
             view.options.count
         }
     }
+
 }
