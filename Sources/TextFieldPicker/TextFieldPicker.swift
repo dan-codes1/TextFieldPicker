@@ -114,12 +114,11 @@ extension TextFieldPicker {
             self.view = view
         }
 
-        public func indexOfInitalSelection(_ picker: TextFieldPickerUIView) -> NSNumber {
-            if let selection = view.selection,
-               let idx = view.options.firstIndex(where: { $0.id == selection.id }) {
-                return idx as NSNumber
+        public func indexOfInitalSelection(_ picker: TextFieldPickerUIView) -> Int? {
+            guard let selection = view.selection else {
+                return nil
             }
-            return 0
+            return view.options.firstIndex(where: { $0.id == selection.id })
         }
 
         public func picker(_ picker: TextFieldPickerUIView, didSelectItemAtRow row: Int) {

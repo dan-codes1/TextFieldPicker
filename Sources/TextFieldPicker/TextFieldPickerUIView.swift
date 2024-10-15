@@ -21,7 +21,7 @@ public final class TextFieldPickerUIView: UIView {
         didSet {
             textField.text = initialTextFieldText
             if let row = delegate?.indexOfInitalSelection?(self) {
-                picker.selectRow(row.intValue, inComponent: 0, animated: false)
+                picker.selectRow(row, inComponent: 0, animated: false)
             }
         }
     }
