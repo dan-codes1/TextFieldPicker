@@ -20,7 +20,7 @@ import Foundation
     /// - Parameters:
     ///     - picker: The picker view.
     /// - Returns: The number of items in the picker.
-    @objc optional func indexOfInitalSelection(_ picker: TextFieldPickerUIView) -> NSNumber?
+    @objc optional func indexOfInitalSelection(_ picker: TextFieldPickerUIView) -> NSNumber
 
     /// Gets the text for each picker item.
     /// - Parameters:
