@@ -8,13 +8,19 @@
 
 import Foundation
 
-public protocol TextFieldPickerDelegate {
+@objc public protocol TextFieldPickerDelegate {
     /// Informs the delegate that an item has been selected.
     /// - Note: This informs the delegate based on the `TextFieldPickerSelectionUpdateMode` of the picker.
     /// - Parameters:
     ///     - picker: The picker view.
     ///     - row: the selected row.
     func picker(_ picker: TextFieldPickerUIView, didSelectItemAtRow row: Int)
+
+    /// Gets the index of the initial selection.
+    /// - Parameters:
+    ///     - picker: The picker view.
+    /// - Returns: The number of items in the picker.
+    @objc optional func indexOfInitalSelection(_ picker: TextFieldPickerUIView) -> NSNumber?
 
     /// Gets the text for each picker item.
     /// - Parameters:

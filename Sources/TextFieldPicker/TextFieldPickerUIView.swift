@@ -20,6 +20,9 @@ public final class TextFieldPickerUIView: UIView {
     public var initialTextFieldText: String? {
         didSet {
             textField.text = initialTextFieldText
+            if let row = delegate?.indexOfInitalSelection?(self) {
+                picker.selectRow(row.intValue, inComponent: 0, animated: false)
+            }
         }
     }
     public var placeHolder: String? {
@@ -96,7 +99,7 @@ private extension TextFieldPickerUIView {
 
 extension TextFieldPickerUIView: UITextFieldDelegate {
     public func textFieldDidBeginEditing(_ textField: UITextField) {
-        if isInitialSelection {
+        if isInitialSelection && initialTextFieldText == nil {
             let string = delegate?.picker(self, titleForRow: 0)
             textField.text = string
             isInitialSelection = false
