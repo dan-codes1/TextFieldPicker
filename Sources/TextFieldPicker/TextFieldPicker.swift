@@ -54,7 +54,9 @@ public struct TextFieldPicker<T>: UIViewRepresentable where T: Identifiable & Cu
         let view = TextFieldPickerUIView()
         view.delegate = context.coordinator
         view.placeHolder = title
-        view.initialTextFieldText = selection?.description
+        if let selection {
+            view.initialSelectionIndex = options.firstIndex(where: { $0.id == selection.id })
+        }
         return view
     }
     
@@ -112,13 +114,6 @@ extension TextFieldPicker {
 
         init(_ view: TextFieldPicker) {
             self.view = view
-        }
-
-        public func indexOfInitalSelection(_ picker: TextFieldPickerUIView) -> NSNumber? {
-            guard let selection = view.selection else {
-                return nil
-            }
-            return view.options.firstIndex(where: { $0.id == selection.id }) as? NSNumber
         }
 
         public func picker(_ picker: TextFieldPickerUIView, didSelectItemAtRow row: Int) {

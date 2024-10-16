@@ -17,14 +17,15 @@ public final class TextFieldPickerUIView: UIView {
             textField.font = font
         }
     }
-    public var initialTextFieldText: String? {
+    /// The index of the initinial selection value.
+    /// - Important: Set the delegate before setting this value.
+    public var initialSelectionIndex: Int? {
         didSet {
-            if let initialTextFieldText {
-                textField.text = initialTextFieldText
-                if let row = delegate?.indexOfInitalSelection?(self) {
-                    picker.selectRow(row.intValue, inComponent: 0, animated: false)
-                    selectedRow = row.intValue
-                }
+            if let initialSelectionIndex {
+                let text = delegate?.picker(self, titleForRow: 0)
+                textField.text = text
+                picker.selectRow(initialSelectionIndex, inComponent: 0, animated: false)
+                selectedRow = initialSelectionIndex
             }
         }
     }
@@ -102,7 +103,7 @@ private extension TextFieldPickerUIView {
 
 extension TextFieldPickerUIView: UITextFieldDelegate {
     public func textFieldDidBeginEditing(_ textField: UITextField) {
-        if isInitialSelection && initialTextFieldText == nil {
+        if isInitialSelection && initialSelectionIndex == nil {
             let string = delegate?.picker(self, titleForRow: 0)
             textField.text = string
             isInitialSelection = false
