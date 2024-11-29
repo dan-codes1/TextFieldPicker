@@ -1,0 +1,24 @@
+disabled_rules:
+   - function_parameter_count
+   - file_length
+   - function_body_length
+   - identifier_name
+   - type_body_length
+   - todo
+   - line_length
+   - nesting
+   - cyclomatic_complexity
+   - type_name
+   - no_space_in_method_call
+   - redundant_optional_initialization
+   - blanket_disable_command
+opt_in_rules:
+   - closure_spacing
+   - sorted_imports
+excluded:
+   - Pods
+   - Carthage
+   - Tools
+   - Scripts
+   - fastlane
+   - generated
